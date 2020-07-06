@@ -1,0 +1,4 @@
+include openboxlogout oblogout README LICENSE openbox-logout.conf
+recursive-include openboxlogout/pofiles *
+recursive-include openboxlogout/locale *
+recursive-include openboxlogout/themes *
