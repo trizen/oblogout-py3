@@ -1,22 +1,9 @@
 #!/usr/bin/python
 
-import os, sys, glob, fnmatch
+import glob
 
-## Added 10 Jan 2008
-
-try:
-    from distutils.core import setup, Extension
-    import distutils.command.install_data
-    from distutils.core import setup
-except:
-    print("DistUtils / SetupTools are required")
-    sys.exit(1)
-
-try:
-    from DistUtilsExtra.command import *
-except:
-    print("DistUtils Extras is required")
-    sys.exit(1)
+from distutils.core import setup
+from DistUtilsExtra.command import *
 
 setup(name = "oblogout",
     version = "0.2",
