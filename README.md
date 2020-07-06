@@ -1,6 +1,6 @@
 ## Openbox Logout
 
-GTK/Cairo based logout box for Openbox
+GTK/Cairo based logout menu for Openbox
 
 This is a fork of: https://github.com/Cloudef/oblogout-fork
 
