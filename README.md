@@ -2,6 +2,8 @@
 
 GTK/Cairo based logout menu for Openbox
 
+![oblogout](https://user-images.githubusercontent.com/614513/86627660-5b5b4680-bfd1-11ea-8bba-622054574c66.png)
+
 This is a fork of: https://github.com/Cloudef/oblogout-fork
 
 * oblogout by:
