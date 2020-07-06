@@ -31,10 +31,6 @@ import getopt
 import logging
 import logging.handlers
 
-sys.path.append('/tmp/oblogout-fork-master/')
-
-from oblogout import OpenboxLogout
-
 class Usage(Exception):
     def __init__(self, msg):
         self.msg = msg
@@ -76,11 +72,16 @@ def main(argv = None):
         elif o in ("-l", "--local"):
             local_mode = True
 
+    if local_mode:
+        sys.path.append('.')
+
+    from oblogout import OpenboxLogout
+
     if not config:
-        if not local_mode:
-            config = '/etc/oblogout.conf'
-        else:
+        if local_mode:
             config = 'data/oblogout.conf'
+        else:
+            config = '/etc/oblogout.conf'
 
     # Check config in local path, if it exists pass it on
     if not os.path.exists(config):

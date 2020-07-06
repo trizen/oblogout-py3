@@ -224,7 +224,9 @@ class OpenboxLogout():
             if self.parser.has_option("settings", "monitor"):
                self.monitor = self.parser.getint("settings", "monitor")
 
-        if self.backend == "HAL" or self.backend == "ConsoleKit":
+        # TODO: fix me
+        # ~ if self.backend == "HAL" or self.backend == "ConsoleKit":
+        if False:
             from dbushandler import DbusController
             self.dbus = DbusController(self.backend)
             if self.dbus.check() == False:
