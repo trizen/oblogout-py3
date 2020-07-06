@@ -6,7 +6,7 @@ from distutils.core import setup
 from DistUtilsExtra.command import *
 
 setup(name = "oblogout",
-    version = "0.2",
+    version = "0.02",
     description = "Openbox Logout",
     author = "Andrew Williams",
     author_email = "andy@tensixtyone.com",
