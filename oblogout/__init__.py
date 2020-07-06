@@ -70,7 +70,7 @@ class OpenboxLogout():
     cmd_hibernate = "pmi action hibernate"
     cmd_safesuspend = ""
     cmd_lock = "gnome-screensaver-command -l"
-    cmd_switchuser = "gdm-control --switch-user"
+    cmd_switch = "gdm-control --switch-user"
     cmd_logout = "openbox --exit"
 
     def __init__(self, config=None, local=None):
@@ -433,7 +433,7 @@ class OpenboxLogout():
             self.__exec_cmd(self.cmd_lock)
 
         elif (data == 'switch'):
-            self.__exec_cmd(self.cmd_switchuser)
+            self.__exec_cmd(self.cmd_switch)
 
         self.quit()
 
