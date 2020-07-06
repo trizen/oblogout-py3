@@ -5,13 +5,11 @@ GTK/Cairo based logout box for Openbox
 This is a fork of: https://github.com/Cloudef/oblogout-fork
 
 * oblogout by:
-
-      - Andrew Williams <andy@tensixtyone.com>
+     - Andrew Williams <andy@tensixtyone.com>
 
 * Originally based on code by:
-
-       - adcomp <david.madbox@gmail.com>
-       - iggykoopa <etrombly@yahoo.com>
+     - adcomp <david.madbox@gmail.com>
+     - iggykoopa <etrombly@yahoo.com>
 
 * Modified by Daniel [Trizen](https://github.com/trizen) Șuteu to work on Python 3.
 
@@ -23,9 +21,7 @@ This is a fork of: https://github.com/Cloudef/oblogout-fork
 # RUN
 
  - Run via the `oblogout` command
-
- - CAIRO RENDERING IS ONLY ENABLED FOR COMPOSITED SCREENS!
-   Rendered effects are used for ones without.
+ 
 
 # CONFIGURATION OPTIONS
 
