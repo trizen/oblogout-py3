@@ -16,12 +16,12 @@ This is a fork of: https://github.com/Cloudef/oblogout-fork
 # INSTALLATION
 
  - Run `./setup.py install`
- - Customise the config (`/etc/oblogout.conf`) as needed
+ - Customise the config (`/etc/oblogout.conf`) as desired
 
 # RUN
 
  - Run via the `oblogout` command
- 
+
 
 # CONFIGURATION OPTIONS
 

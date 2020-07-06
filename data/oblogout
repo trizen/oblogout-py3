@@ -73,7 +73,7 @@ def main(argv = None):
             local_mode = True
 
     if local_mode:
-        sys.path.append('.')
+        sys.path = ['.', *sys.path]
 
     from oblogout import OpenboxLogout
 
