@@ -13,7 +13,7 @@ This is a fork of: https://github.com/Cloudef/oblogout-fork
      - adcomp <david.madbox@gmail.com>
      - iggykoopa <etrombly@yahoo.com>
 
-* Modified by Daniel [Trizen](https://github.com/trizen) Șuteu to work on Python 3.
+* Ported to Python 3 by Daniel [Trizen](https://github.com/trizen) Șuteu.
 
 # INSTALLATION
 
@@ -39,10 +39,10 @@ This is a fork of: https://github.com/Cloudef/oblogout-fork
 ## LOOKS
 
  - Opacity = Opacity percentage of Cario rendered backgrounds
- - Bgcolor = Colour name or hex code (#ffffff) of the background color
+ - Bgcolor = Colour name or hex code (`#ffffff`) of the background color
 
  - Buttontheme = Icon theme for the buttons, must be in the themes folder of the
-                 package, or in ~/.themes/<name>/oblogout/
+                 package, or in `~/.themes/<name>/oblogout/`
  - Buttons = List and order of buttons to show
 
 
