@@ -34,23 +34,17 @@ import logging
 import gettext
 import string
 
-#import pyGtk
-#pyGtk.require('2.0')
-
 import gi
 gi.require_version('Gtk', '3.0')
 
-from gi.repository import Gtk
-from gi.repository import Gdk
-from gi.repository import GdkPixbuf
-#from gi.repository import GdkX11
-
-# ~ try:
-    # ~ import Gtk
-# ~ except:
-    # ~ print("pyGTK missing, install python-Gtk")
-    # ~ sys.exit()
-
+try:
+    from gi.repository import Gtk
+    from gi.repository import Gdk
+    from gi.repository import GdkPixbuf
+    # from gi.repository import GdkX11
+except:
+    print("pyGTK missing, install python-gobject")
+    sys.exit()
 try:
     import cairo
 except:

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-06 18:46+0300\n"
+"POT-Creation-Date: 2020-12-14 10:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,61 +17,61 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../oblogout/__init__.py:100
+#: ../oblogout/__init__.py:94
 msgid "Openbox Logout"
 msgstr ""
 
-#: ../oblogout/__init__.py:251
+#: ../oblogout/__init__.py:245
 #, python-format
 msgid "Color %s is not a valid color, defaulting to black"
 msgstr ""
 
-#: ../oblogout/__init__.py:290
+#: ../oblogout/__init__.py:284
 msgid "cancel"
 msgstr ""
 
-#: ../oblogout/__init__.py:290
+#: ../oblogout/__init__.py:284
 msgid "logout"
 msgstr ""
 
-#: ../oblogout/__init__.py:290
+#: ../oblogout/__init__.py:284
 msgid "restart"
 msgstr ""
 
-#: ../oblogout/__init__.py:290
+#: ../oblogout/__init__.py:284
 msgid "shutdown"
 msgstr ""
 
-#: ../oblogout/__init__.py:290
+#: ../oblogout/__init__.py:284
 msgid "suspend"
 msgstr ""
 
-#: ../oblogout/__init__.py:290
+#: ../oblogout/__init__.py:284
 msgid "hibernate"
 msgstr ""
 
-#: ../oblogout/__init__.py:290
+#: ../oblogout/__init__.py:284
 msgid "safesuspend"
 msgstr ""
 
-#: ../oblogout/__init__.py:290
+#: ../oblogout/__init__.py:284
 msgid "lock"
 msgstr ""
 
-#: ../oblogout/__init__.py:290
+#: ../oblogout/__init__.py:284
 msgid "switch"
 msgstr ""
 
-#: ../oblogout/__init__.py:302
+#: ../oblogout/__init__.py:296
 #, python-format
 msgid "Button %s is not a valid button name, removing"
 msgstr ""
 
-#: ../oblogout/__init__.py:307
+#: ../oblogout/__init__.py:301
 #, python-format
 msgid "Can't %s, disabling button"
 msgstr ""
 
-#: ../oblogout/__init__.py:311
+#: ../oblogout/__init__.py:305
 msgid "No valid buttons found, resetting to defaults"
 msgstr ""
