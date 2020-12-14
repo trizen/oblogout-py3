@@ -15,7 +15,7 @@ This is a fork of: https://github.com/Cloudef/oblogout-fork
 
 * Ported to Python 3 by Daniel [Trizen](https://github.com/trizen) Șuteu.
 
-* This fork also includes some fixes from https://github.com/ARR8/oblogout-fork-gtk3
+Includes some fixes from https://github.com/ARR8/oblogout-fork-gtk3
 
 # INSTALLATION
 
