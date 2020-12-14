@@ -227,7 +227,7 @@ class OpenboxLogout():
         # TODO: fix me
         # ~ if self.backend == "HAL" or self.backend == "ConsoleKit":
         if False:
-            from dbushandler import DbusController
+            from .dbushandler import DbusController
             self.dbus = DbusController(self.backend)
             if self.dbus.check() == False:
                del self.dbus
@@ -294,7 +294,7 @@ class OpenboxLogout():
         elif blist == "default":
             L = validbuttons
         else:
-            L = list(map(lambda button: button.lstrip().rstrip(), blist.split(",")))
+            L = list([button.lstrip().rstrip() for button in blist.split(",")])
 
         # Validate the button L
         for button in L:
