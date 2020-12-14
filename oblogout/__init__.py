@@ -26,6 +26,9 @@
 #    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
 
+# Includes some fixes from:
+#   https://github.com/ARR8/oblogout-fork-gtk3
+
 import os
 import sys
 import configparser
@@ -45,6 +48,7 @@ try:
 except:
     print("pyGTK missing, install python-gobject")
     sys.exit()
+
 try:
     import cairo
 except:
@@ -97,21 +101,21 @@ class OpenboxLogout():
         self.window.connect("key-press-event", self.on_keypress)
         self.window.connect("window-state-event", self.on_window_state_change)
 
-        # TODO: fix me
-        #if not self.window.is_composited():
-        if True:
+        if not self.window.is_composited():
             self.logger.debug("No compositing, enabling rendered effects")
             # Window isn't composited, enable rendered effects
             self.rendered_effects = True
         else:
             # Link in Cairo rendering events
-            #self.window.connect('expose-event',self.on_expose)
+            self.window.connect('draw', self.on_expose)
             self.window.connect('screen-changed', self.on_screen_changed)
             self.on_screen_changed(self.window)
             self.rendered_effects = False
 
         self.window.set_size_request(620,200)
-        self.window.override_background_color(0, Gdk.RGBA(*Gdk.color_parse("black").to_floats()))
+        bgcolor = Gdk.RGBA()
+        Gdk.RGBA.parse(bgcolor, "black")
+        self.window.modify_bg(Gtk.StateFlags.NORMAL, bgcolor.to_color())
 
         self.window.set_decorated(False)
         self.window.set_position(Gtk.WindowPosition.CENTER)
@@ -136,9 +140,9 @@ class OpenboxLogout():
         self.buttonpanel.set_spacing(10)
 
         # Pack in the button box into the panel box, with two padder boxes
-        self.mainpanel.pack_start(Gtk.VBox(), False, False, 0)
-        self.mainpanel.pack_start(self.buttonpanel, True, False, 0)
-        self.mainpanel.pack_start(Gtk.VBox(), False, False, 0)
+        self.mainpanel.pack_start(Gtk.VBox(), expand=True, fill=True, padding=0)
+        self.mainpanel.pack_start(self.buttonpanel, expand=False, fill=False, padding=0)
+        self.mainpanel.pack_start(Gtk.VBox(), expand=True, fill=True, padding=0)
 
         # Add the main panel to the window
         self.window.add(self.mainpanel)
@@ -146,24 +150,17 @@ class OpenboxLogout():
         for button in self.button_list:
             self.__add_button(button, self.buttonpanel)
 
-        self.window.set_app_paintable(True)
-        self.window.resize(width, height)
-        self.window.realize()
-
-        # GdkX11
         if self.rendered_effects == True:
             self.logger.debug("Stepping though render path")
             w = Gdk.get_default_root_window()
-            surface = cairo.ImageSurface(cairo.FORMAT_RGB24, width, height)
-            pb = Gdk.pixbuf_get_from_surface(surface, 0, 0, width, height)
-            #pb = pb.get_from_drget_pixelsawable(w,w.get_colormap(),x,y,0,0,width,height)
-            #pb = pb.get_pixels()
+            pb = Gdk.pixbuf_get_from_window(w,x,y,width,height)
 
             self.logger.debug("Rendering Fade")
             # Convert Pixbuf to PIL Image
             wh = (pb.get_width(),pb.get_height())
             pilimg = Image.frombytes("RGB", wh, pb.get_pixels())
-            pilimg = pilimg.point(lambda p: (p * self.opacity) / 255 )
+
+            pilimg = pilimg.point(lambda p: ((p * self.opacity) // 255 ))
 
             # "Convert" the PIL to Pixbuf via PixbufLoader
             buf = io.BytesIO()
@@ -177,33 +174,30 @@ class OpenboxLogout():
             buf.close()
             loader.close()
 
-            # TODO: fix me
-            #pixmap, mask = pixbuf.render_pixmap_and_mask()
-            cr = cairo.Context(surface)
-            Gdk.cairo_set_source_pixbuf(cr, pixbuf, width, height)
-            cr.paint()
-            pixmap = pixbuf
+            # width, height = pixmap.get_size()
         else:
-            pixmap = None
+            pixbuf = None
 
-        if pixmap:
-            True
-            #self.window.Drawable.draw_pixbuf(pixbuf, 0, 0, 0, 0, width, height)
-            #self.window.window.set_back_pixmap(pixmap, False)
+        self.window.set_app_paintable(True)
+        self.window.resize(width, height)
+        self.window.realize()
 
+        if pixbuf:
+            self.window.connect('draw', self.on_expose, pixbuf)
         self.window.move(x,y)
 
     def load_config(self, config):
         """ Load the configuration file and parse entries, when encountering a issue
             change safe defaults """
 
-        self.parser = configparser.ConfigParser()
+        self.parser = configparser.SafeConfigParser()
         self.parser.read(config)
 
         # Set some safe defaults
         self.opacity = 50
         self.button_theme = "default"
-        self.bgcolor = Gdk.color_parse("black")
+        self.bgcolor = Gdk.RGBA()
+        Gdk.RGBA.parse(self.bgcolor, "black")
         self.monitor = 0
         blist = ""
 
@@ -218,9 +212,7 @@ class OpenboxLogout():
             if self.parser.has_option("settings", "monitor"):
                self.monitor = self.parser.getint("settings", "monitor")
 
-        # TODO: fix me
-        # ~ if self.backend == "HAL" or self.backend == "ConsoleKit":
-        if False:
+        if self.backend == "HAL" or self.backend == "ConsoleKit":
             from .dbushandler import DbusController
             self.dbus = DbusController(self.backend)
             if self.dbus.check() == False:
@@ -240,10 +232,10 @@ class OpenboxLogout():
 
             if self.parser.has_option("looks", "bgcolor"):
                 try:
-                    self.bgcolor = Gdk.color_parse(self.parser.get("looks", "bgcolor"))
+                    Gdk.RGBA.parse(self.bgcolor, self.parser.get("looks", "bgcolor"))
                 except:
                     self.logger.warning(_("Color %s is not a valid color, defaulting to black") % self.parser.get("looks", "bgcolor"))
-                    self.bgcolor = Gdk.color_parse("black")
+                    Gdk.RGBA.parse(self.bgcolor, "black")
 
             if self.parser.has_option("looks", "opacity"):
                 blist = self.parser.get("looks", "buttons")
@@ -288,7 +280,7 @@ class OpenboxLogout():
         elif blist == "default":
             L = validbuttons
         else:
-            L = list([button.lstrip().rstrip() for button in blist.split(",")])
+            L = [str.strip(button) for button in blist.split(",")]
 
         # Validate the button L
         for button in L:
@@ -309,11 +301,11 @@ class OpenboxLogout():
             self.button_list = L
 
 
-    def on_expose(self, widget, event):
+    def on_expose(self, widget, event, *args):
 
-        cr = widget.window.cairo_create()
+        cr = widget.get_window().cairo_create()
 
-        if self.supports_alpha == True:
+        if hasattr(self, "supports_alpha") and self.supports_alpha == True:
             cr.set_source_rgba(1.0, 1.0, 1.0, 0.0) # Transparent
         else:
             cr.set_source_rgb(1.0, 1.0, 1.0) # Opaque white
@@ -323,7 +315,10 @@ class OpenboxLogout():
         cr.paint()
 
         (width, height) = widget.get_size()
-        cr.set_source_rgba(self.bgcolor.red, self.bgcolor.green, self.bgcolor.blue, float(self.opacity)/100)
+        if args: # pixbuf
+            Gdk.cairo_set_source_pixbuf(cr, args[0], 0, 0)
+        else:
+            cr.set_source_rgba(self.bgcolor.red, self.bgcolor.green, self.bgcolor.blue, float(self.opacity)/100)
 
         cr.rectangle(0, 0, width, height)
         cr.fill()
@@ -332,20 +327,19 @@ class OpenboxLogout():
 
     def on_screen_changed(self, widget, old_screen=None):
 
-        # TODO: fix me
         # To check if the display supports alpha channels, get the colormap
         screen = widget.get_screen()
-        colormap = screen.get_rgba_colormap()
+        colormap = screen.get_rgba_visual()
         if colormap == None:
             self.logger.debug("Screen does not support alpha channels!")
-            colormap = screen.get_rgb_colormap()
+            colormap = screen.get_rgb_visual()
             self.supports_alpha = False
         else:
             self.logger.debug("Screen supports alpha channels!")
             self.supports_alpha = True
 
         # Now we have a colormap appropriate for the screen, use it
-        widget.set_colormap(colormap)
+        widget.set_visual(colormap)
 
     def on_window_state_change(self, widget, event, *args):
         if event.new_window_state & Gdk.WindowState.FULLSCREEN:
@@ -366,21 +360,21 @@ class OpenboxLogout():
         image.show()
 
         button = Gtk.Button()
-        button.set_relief(2)    # RELIEF_NONE
-        button.override_background_color(0, Gdk.RGBA(*Gdk.color_parse("black").to_floats()))
+        button.set_relief(Gtk.ReliefStyle.NONE)
+        button.modify_bg(Gtk.StateFlags.PRELIGHT, Gdk.color_parse("black"))
         button.set_focus_on_click(False)
         button.set_border_width(0)
         button.set_property('can-focus', False)
         button.add(image)
         button.show()
-        box.pack_start(button, False, False, 0)
+        box.pack_start(button, expand=False, fill=False, padding=0)
         button.connect("clicked", self.click_button, name)
 
         label = Gtk.Label(_(name))
-        label.override_color(0, Gdk.RGBA(*Gdk.color_parse("white").to_floats()))
-        box.pack_end(label, False, False, 0)
+        label.modify_fg(Gtk.StateFlags.NORMAL, Gdk.color_parse("white"))
+        box.pack_end(label, expand=False, fill=False, padding=0)
 
-        widget.pack_start(box, False, False, 0)
+        widget.pack_start(box, expand=False, fill=False, padding=0)
 
     def click_button(self, widget, data=None):
         if (data == 'logout'):

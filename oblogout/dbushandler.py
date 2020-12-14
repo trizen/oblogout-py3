@@ -20,7 +20,7 @@
 #    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
 
-# TODO: fix me
+# TODO: make sure it works properly.
 
 import logging
 import os
