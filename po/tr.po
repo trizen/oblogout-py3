@@ -1,0 +1,88 @@
+# Turkish translation for oblogout
+# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
+# This file is distributed under the same license as the oblogout package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: oblogout\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2009-01-26 23:21+0000\n"
+"PO-Revision-Date: 2009-01-26 12:52+0000\n"
+"Last-Translator: Cihan_Alkan <cihanalk@gmail.com>\n"
+"Language-Team: aylinux <tr_TR@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-02-01 22:36+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+#: ../ObLogout/oblogout.py:88
+msgid "Openbox Logout"
+msgstr "Openbox Çıkış"
+
+#: ../ObLogout/oblogout.py:178
+msgid "Unable to determin the module path, exiting..."
+msgstr "Modül yolu belirlenemiyor, Çıkılıyor."
+
+#: ../ObLogout/oblogout.py:213
+#, python-format
+msgid "Color %s is not a valid color, defaulting to black"
+msgstr "%s rengi geçerli bir renk değil, Varsayılan olarak siyah olarak ayarlanıyor."
+
+#: ../ObLogout/oblogout.py:235
+msgid "cancel"
+msgstr "İptal"
+
+#: ../ObLogout/oblogout.py:235
+msgid "logout"
+msgstr "Çıkış"
+
+#: ../ObLogout/oblogout.py:235
+msgid "restart"
+msgstr "Yeniden Başlat"
+
+#: ../ObLogout/oblogout.py:235
+msgid "shutdown"
+msgstr "Kapat"
+
+#: ../ObLogout/oblogout.py:235
+msgid "suspend"
+msgstr "Askıya Al"
+
+#: ../ObLogout/oblogout.py:235
+msgid "hibernate"
+msgstr "Hazırda Beklet"
+
+#: ../ObLogout/oblogout.py:235
+msgid "safesuspend"
+msgstr "Güvenli Askıya Al"
+
+#: ../ObLogout/oblogout.py:235
+msgid "lock"
+msgstr "Kilitle"
+
+#: ../ObLogout/oblogout.py:235
+msgid "switch"
+msgstr "Değiştir"
+
+#: ../ObLogout/oblogout.py:247
+#, python-format
+msgid "Button %s is not a valid button name, removing"
+msgstr "%s düğmesi geçerli bir düğme adı değil, Kaldırılıyor."
+
+#: ../ObLogout/oblogout.py:252
+msgid "Can't Suspend, disabling button"
+msgstr "Askıya Alınamıyor, Düğme devre dışı bırakılıyor."
+
+#: ../ObLogout/oblogout.py:256
+msgid "Can't Hibernate, disabling button"
+msgstr "Hazırda Bekletilemiyor, Düğme devre dışı bırakılıyor."
+
+#: ../ObLogout/oblogout.py:260
+msgid "Can't Safe Suspend, disabling button"
+msgstr "Güvenli Askıya Alma, Düğme devre dışı bırakılıyor."
+
+#: ../ObLogout/oblogout.py:264
+msgid "No valid buttons found, resetting to defaults"
+msgstr "Geçerli düğme bulunamadı, varsayılanlara sıfırlanıyor"
