@@ -215,7 +215,7 @@ class OpenboxLogout():
                self.monitor = self.parser.getint("settings", "monitor")
  
             if self.parser.has_option("settings", "disable_lock_on"):
-                lock_on_settings = [_.strip() for _ in self.parser.get("settings", "disable_lock_on")]
+                lock_on_settings = [_.strip() for _ in self.parser.get("settings", "disable_lock_on").split(",")]
                 self.lock_on_hibernate = "hibernate" not in lock_on_settings
                 self.lock_on_suspend = "suspend" not in lock_on_settings
 
