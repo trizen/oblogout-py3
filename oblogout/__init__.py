@@ -199,6 +199,8 @@ class OpenboxLogout():
         self.bgcolor = Gdk.RGBA()
         Gdk.RGBA.parse(self.bgcolor, "black")
         self.monitor = 0
+        self.lock_on_hibernate = True
+        self.lock_on_suspend = True
         blist = ""
 
         # Check if we're using HAL, and init it as required.
@@ -211,6 +213,11 @@ class OpenboxLogout():
 
             if self.parser.has_option("settings", "monitor"):
                self.monitor = self.parser.getint("settings", "monitor")
+ 
+            if self.parser.has_option("settings", "disable_lock_on"):
+                lock_on_settings = [_.strip() for _ in self.parser.get("settings", "disable_lock_on").split(",")]
+                self.lock_on_hibernate = "hibernate" not in lock_on_settings
+                self.lock_on_suspend = "suspend" not in lock_on_settings
 
         if self.backend == "HAL" or self.backend == "ConsoleKit":
             from .dbushandler import DbusController
@@ -394,7 +401,8 @@ class OpenboxLogout():
 
         elif (data == 'suspend'):
             self.window.hide()
-            self.__exec_cmd(self.cmd_lock)
+            if self.lock_on_suspend:
+                self.__exec_cmd(self.cmd_lock)
             if self.backend:
                 self.dbus.suspend()
 
@@ -403,7 +411,8 @@ class OpenboxLogout():
 
         elif (data == 'hibernate'):
             self.window.hide()
-            self.__exec_cmd(self.cmd_lock)
+            if self.lock_on_hibernate:
+                self.__exec_cmd(self.cmd_lock)
             if self.backend:
                 self.dbus.hibernate()
             else:
