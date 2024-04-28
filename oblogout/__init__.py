@@ -190,7 +190,7 @@ class OpenboxLogout():
         """ Load the configuration file and parse entries, when encountering a issue
             change safe defaults """
 
-        self.parser = configparser.SafeConfigParser()
+        self.parser = configparser.ConfigParser()
         self.parser.read(config)
 
         # Set some safe defaults
@@ -213,7 +213,7 @@ class OpenboxLogout():
 
             if self.parser.has_option("settings", "monitor"):
                self.monitor = self.parser.getint("settings", "monitor")
- 
+
             if self.parser.has_option("settings", "disable_lock_on"):
                 lock_on_settings = [_.strip() for _ in self.parser.get("settings", "disable_lock_on").split(",")]
                 self.lock_on_hibernate = "hibernate" not in lock_on_settings
